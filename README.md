@@ -89,6 +89,10 @@ curl -u user_three:password_three http://localhost:8080/demo/data
 ```
 returns: [{"id":1,"field1":"jdbc","field2":"data three"}]
 
+### User Roles
+This demo keeps roles USER for user_one, user_two and user_three and ADMIN for postgres.
+
+
 ### Statistics using actuators
 This demo exposes some statistics about each DataSource [key,lastAccess,accessCount,secondsIdle]
 
