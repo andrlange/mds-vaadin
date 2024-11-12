@@ -3,6 +3,7 @@ package cool.cfapps.mds.views.welcome;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -33,6 +34,23 @@ public class WelcomeView extends VerticalLayout {
 
         grid.getColumns().forEach(column -> column.setAutoWidth(true));
         grid.setItems(dataService.fetchDemoData());
+
+        log.info("Welcome view initialized roles: {}", authenticationContext.getGrantedRoles());
+        if(authenticationContext.hasAllRoles("ADMIN")) {
+            Button adminButton = new Button("Admin Only Button");
+            add(adminButton);
+            adminButton.addClickListener(event -> {
+                Notification.show("Admin Only Button Clicked!",3000, Notification.Position.MIDDLE);
+            });
+        }
+
+        if(authenticationContext.hasAllRoles("USER")) {
+            Button userButton = new Button("User Button");
+            add(userButton);
+            userButton.addClickListener(event -> {
+                Notification.show("User Button Clicked!",3000, Notification.Position.MIDDLE);
+            });
+        }
 
         Button logoutButton = new Button("Logout");
         logoutButton.addClickListener(event -> {

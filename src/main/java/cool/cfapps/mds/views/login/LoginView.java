@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -65,8 +66,13 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
                 // Compare the raw password with the hashed password from the database
                 if (passwordEncoder.matches(event.getPassword(), user.getPassword())) {
                     // Authentication successful
+
                     List<GrantedAuthority> authorities = new ArrayList<>();
-                    authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                   user.getAuthorities().forEach(authority -> {
+                       log.info("User has role: {}", authority.getAuthority());
+                       authorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
+                   });
+
 
                     Authentication authentication
                             = new UsernamePasswordAuthenticationToken(event.getUsername(), event.getPassword(),
