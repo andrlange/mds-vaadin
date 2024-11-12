@@ -105,7 +105,7 @@ public class DbUserDetailsService extends InMemoryUserDetailsManager {
 
         log.info("try to get user: {} : {}", user, password);
 
-        if (!allowDefaultLogin && defaultUserName.equals(username)) {
+        if (!allowDefaultLogin && defaultUserName.equals(user)) {
             log.info("Default user login is not allowed");
             return null;
         }
