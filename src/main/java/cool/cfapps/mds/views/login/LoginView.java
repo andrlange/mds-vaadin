@@ -97,7 +97,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
         });
 
-        add(new H1("Demo"), new Div("Anmeldung"), loginForm);
+        add(new H1("Demo"), new Div("Authentication"), loginForm);
     }
 
     @Override
