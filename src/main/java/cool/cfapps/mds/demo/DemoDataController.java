@@ -25,7 +25,13 @@ public class DemoDataController {
 
     @GetMapping
     public String testAuth(Authentication authentication) {
-        return "Hello " + authentication.getName() + " from authenticated user for " + service.type() + " type:"+service.type()+"!";
+        return "GET: Hello " + authentication.getName() + " from authenticated user for " + service.type() + " type:"+service.type()+"!";
+    }
+
+    @PostMapping
+    public String testAuthPost(Authentication authentication) {
+        return "POST: Hello " + authentication.getName() + " from authenticated user for " + service.type() + " type" +
+               ":"+service.type()+"!";
     }
 
     @GetMapping("data")

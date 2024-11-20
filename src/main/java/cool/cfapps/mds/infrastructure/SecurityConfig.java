@@ -2,14 +2,10 @@ package cool.cfapps.mds.infrastructure;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
 import cool.cfapps.mds.views.login.LoginView;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig extends VaadinWebSecurity {
@@ -18,11 +14,11 @@ public class SecurityConfig extends VaadinWebSecurity {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/demo/**"))
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/actuator/**").permitAll())
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/login").permitAll())
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/logout").permitAll())
-        //.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated());
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/demo/**").authenticated())
         .httpBasic(Customizer.withDefaults());  // Enables HTTP Basic Authentication
 
         super.configure(http);
@@ -36,4 +32,8 @@ public class SecurityConfig extends VaadinWebSecurity {
         // Customize your WebSecurity configuration.
         super.configure(web);
     }
+
+
 }
+
+
