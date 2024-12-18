@@ -13,7 +13,7 @@ Username/Password authentication of the given DB.
 
 All relevant data and configs from PostgreSQL and PGAdmin are exposed to the local File System ```/vols```
 
-### Based on Spring Boot 3.4.0 / Vaadin Flow 24.5.7 / JDK21
+### Based on Spring Boot 3.4.0 / Vaadin Flow 24.6.0 / JDK21
 
 - Spring Boot Starter JDBC
 - Spring Boot Starter JPA
